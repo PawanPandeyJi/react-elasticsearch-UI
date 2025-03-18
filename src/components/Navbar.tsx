@@ -11,7 +11,7 @@ const Navbar = () => {
         <NavLink to="/">
           <Button sx={{color: "white", marginRight: "1rem"}}>Add Book</Button>
         </NavLink>
-        <NavLink to="/allBooks">
+        <NavLink to="/books">
         <Button  sx={{color: "white"}}>All Books</Button>
         </NavLink>
       </Toolbar>
