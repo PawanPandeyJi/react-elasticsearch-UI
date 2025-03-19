@@ -1,0 +1,6 @@
+.booksCard {
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    flex-wrap: wrap;
+}
