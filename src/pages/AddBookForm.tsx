@@ -20,7 +20,6 @@ const AddBookForm = () => {
       if (response.ok) {
         console.log("Book added", res_data);
       }
-      console.log("Book added", book);
       setBook({ title: "", author: "", year: "" });
     } catch (error) {
       console.log("Form submit error", error);
