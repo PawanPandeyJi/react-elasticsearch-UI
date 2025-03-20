@@ -34,7 +34,7 @@ type RequestBooksData = {
 };
 
 const Elasticsearch = () => {
-  const [books, setBooks] = useState<RequestBooksData | null>();
+  const [books, setBooks] = useState<RequestBooksData | null>(null);
   const [filter, setFilter] = useState({
     ID: false,
     Title: false,
@@ -46,7 +46,7 @@ const Elasticsearch = () => {
   const [inputFocus, setInputFocus] = useState(false)
   
 
-  const handleFilterChange = (e) => {
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFilter((prevValue) => ({
       ...prevValue,
@@ -85,7 +85,7 @@ const Elasticsearch = () => {
 };
 const allBooks = books?.hits.hits;
 
-const handleSearchSubmit = async(e) => {
+const handleSearchSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log(searchInput)
     try {
@@ -163,28 +163,24 @@ const handleSearchSubmit = async(e) => {
           </form>
           <Typography variant="subtitle1">Filter By:</Typography>
           <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleFilterChange}/>}
             label="Title"
             name="Title"
-            onChange={handleFilterChange}
           />
           <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleFilterChange}/>}
             label="Author"
             name="Author"
-            onChange={handleFilterChange}
           />
           <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleFilterChange}/>}
             label="Year"
             name="Year"
-            onChange={handleFilterChange}
           />
           <FormControlLabel
-            control={<Checkbox />}
+            control={<Checkbox onChange={handleFilterChange}/>}
             label="ID"
             name="ID"
-            onChange={handleFilterChange}
           />
           <Button
             onClick={getBooks}
