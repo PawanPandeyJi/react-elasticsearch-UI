@@ -42,7 +42,7 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
       <div className="booksCard">
         {books?.map((books) => {
           return (
-            <Card sx={{ maxWidth: 300, m: 2, boxShadow: 2 }} key={books.id}>
+            <Card sx={{ width: 300, m: 2, boxShadow: 2 }} key={books.id}>
               <CardContent>
                 <Typography variant="h6">{books.title}</Typography>
                 <Typography variant="subtitle1" color="text.secondary">
