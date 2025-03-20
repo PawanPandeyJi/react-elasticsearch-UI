@@ -4,3 +4,7 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.esBooks::-webkit-scrollbar {
+    display: none;
+}
