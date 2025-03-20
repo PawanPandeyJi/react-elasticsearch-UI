@@ -1,7 +1,11 @@
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Badge } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+type BookCountProp = {
+  bookCount: number;
+};
+
+const Navbar = (props: BookCountProp) => {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -9,10 +13,17 @@ const Navbar = () => {
           Elasticsearch
         </Typography>
         <NavLink to="/">
-          <Button sx={{color: "white", marginRight: "1rem"}}>Add Book</Button>
+          <Button sx={{ color: "white", marginRight: "1rem" }}>Add Book</Button>
         </NavLink>
-        <NavLink to="/allBooks">
-        <Button  sx={{color: "white"}}>All Books</Button>
+        <NavLink to="/books" style={{position: "relative"}}>
+          <Badge
+            badgeContent={props.bookCount}
+            color="warning"
+            sx={{ color: "white", position: "absolute", right: "1.2rem", top: "0.5rem"}}
+            max={999}
+          >
+          </Badge>
+            <Button sx={{ color: "white", marginRight: "1rem" }}>All Books</Button>
         </NavLink>
       </Toolbar>
     </AppBar>
