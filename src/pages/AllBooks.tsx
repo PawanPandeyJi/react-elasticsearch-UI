@@ -1,6 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 
 type RequestBooksData = {
   id: string;
@@ -35,7 +34,6 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
 
   useEffect(() => {
     getAllBooks();
-    <Navbar bookCount={books.length} />;
   }, []);
   return (
     <>
