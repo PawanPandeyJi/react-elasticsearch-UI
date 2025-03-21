@@ -32,8 +32,17 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
     }
   };
 
-  const handleDelete = (id: string) => {
-    console.log(id);
+  const handleDelete = async(id: string) => {
+    try {
+      const response = await fetch(`http://localhost:8080/books/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        getAllBooks();
+      }
+    } catch (error) {
+      console.log("handleDeleteAPI error", error);
+    }
   };
 
   useEffect(() => {
