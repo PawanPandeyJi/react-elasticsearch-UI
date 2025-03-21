@@ -1,7 +1,6 @@
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AddBookForm from "./AddBookForm";
 
 type RequestBooksData = {
   id: string;
@@ -39,9 +38,11 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
       const response = await fetch(`http://localhost:8080/books/${id}`, {
         method: "DELETE",
       });
+      const res_data = await response.json()
       if (response.ok) {
         setBooks((prevBooks) => prevBooks.filter((book) => book.id !== id));
         updateBookCount(books.length - 1);
+        alert(`Book deleted, ES sync time: ${res_data.es_sync_time_ms}ms`);
       }
     } catch (error) {
       console.log("handleDeleteAPI error", error);

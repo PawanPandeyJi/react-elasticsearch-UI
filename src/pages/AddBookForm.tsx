@@ -1,7 +1,6 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-
 
 const AddBookForm = () => {
   const navigate = useNavigate();
@@ -32,9 +31,14 @@ const AddBookForm = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(book),
       });
-      const res_data = response.json();
+      const res_data = await response.json();
       if (response.ok) {
-        console.log("Book added", res_data);
+        if (editBookData) {
+          navigate("/books");
+          alert(`Book updated, ES sync time: ${res_data.es_sync_time_ms}ms`);
+        } else {
+          alert(`Book added, ES sync time: ${res_data.es_sync_time_ms}ms`);
+        }
       }
       setBook({ title: "", author: "", year: "" });
     } catch (error) {
@@ -86,7 +90,7 @@ const AddBookForm = () => {
           required
         />
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-          Add Book
+          {editBookData ? "Update Book" : "Add Book"}
         </Button>
       </form>
     </Box>
