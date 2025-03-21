@@ -15,15 +15,26 @@ const Navbar = (props: BookCountProp) => {
         <NavLink to="/">
           <Button sx={{ color: "white", marginRight: "1rem" }}>Add Book</Button>
         </NavLink>
-        <NavLink to="/books" style={{position: "relative"}}>
+        <NavLink to="/books" style={{ position: "relative" }}>
           <Badge
             badgeContent={props.bookCount}
             color="warning"
-            sx={{ color: "white", position: "absolute", right: "1.2rem", top: "0.5rem"}}
+            sx={{
+              color: "white",
+              position: "absolute",
+              right: "1.2rem",
+              top: "0.5rem",
+            }}
             max={999}
-          >
-          </Badge>
-            <Button sx={{ color: "white", marginRight: "1rem" }}>All Books</Button>
+          ></Badge>
+          <Button sx={{ color: "white", marginRight: "1rem" }}>
+            All Books
+          </Button>
+        </NavLink>
+        <NavLink to="/elasticsearch">
+          <Button sx={{ color: "white", marginRight: "1rem" }}>
+            Elastic Search
+          </Button>
         </NavLink>
       </Toolbar>
     </AppBar>

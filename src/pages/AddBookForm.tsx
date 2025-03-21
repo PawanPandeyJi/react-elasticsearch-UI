@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { TextField, Button, Box, Typography } from "@mui/material";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AddBookForm = () => {
-  const [book, setBook] = useState({ title: "", author: "", year: "" });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const editBookData = location.state?.book || null;
+  const [book, setBook] = useState({
+    title: editBookData?.title || "",
+    author: editBookData?.author || "",
+    year: editBookData?.year || "",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBook({ ...book, [e.target.name]: e.target.value });
@@ -11,14 +20,25 @@ const AddBookForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/book", {
-        method: "POST",
+      const editId = editBookData?.id;
+      const url = editBookData
+        ? `http://localhost:8080/books/${editId}`
+        : "http://localhost:8080/book";
+
+      const method = editBookData ? "PUT" : "POST";
+      const response = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(book),
       });
-      const res_data = response.json();
+      const res_data = await response.json();
       if (response.ok) {
-        console.log("Book added", res_data);
+        if (editBookData) {
+          navigate("/books");
+          alert(`Book updated, ES sync time: ${res_data.es_sync_time_ms}ms`);
+        } else {
+          alert(`Book added, ES sync time: ${res_data.es_sync_time_ms}ms`);
+        }
       }
       setBook({ title: "", author: "", year: "" });
     } catch (error) {
@@ -70,7 +90,7 @@ const AddBookForm = () => {
           required
         />
         <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
-          Add Book
+          {editBookData ? "Update Book" : "Add Book"}
         </Button>
       </form>
     </Box>
