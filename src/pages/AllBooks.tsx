@@ -1,5 +1,7 @@
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AddBookForm from "./AddBookForm";
 
 type RequestBooksData = {
   id: string;
@@ -46,6 +48,16 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleUpdate = async (book: RequestBooksData) => {
+    try {
+      navigate("/", { state: { book } });
+    } catch (error) {
+      console.log("handleDeleteAPI error", error);
+    }
+  };
+
   useEffect(() => {
     getAllBooks();
   }, []);
@@ -61,14 +73,26 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
                   {books.author}
                 </Typography>
                 <Typography variant="body2">Published: {books.year}</Typography>
-                <Button
-                  variant="contained"
-                  color="error"
-                  sx={{ mt: 2 }}
-                  onClick={() => handleDelete(books.id)}
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                  Delete
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    sx={{ mt: 2 }}
+                    onClick={() => handleDelete(books.id)}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ mt: 2 }}
+                    onClick={() => handleUpdate(books)}
+                  >
+                    Edit
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           );
