@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 type RequestBooksData = {
@@ -11,7 +11,7 @@ type RequestBooksData = {
 };
 
 type AllBooksProps = {
-  updateBookCount: (count: number) => void; 
+  updateBookCount: (count: number) => void;
 };
 
 const AllBooks = ({ updateBookCount }: AllBooksProps) => {
@@ -25,11 +25,15 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
       const res_data = await response.json();
       if (response.ok) {
         setBooks(res_data);
-        updateBookCount(res_data.length)
+        updateBookCount(res_data.length);
       }
     } catch (error) {
       console.log("getAllBooksAPI error", error);
     }
+  };
+
+  const handleDelete = (id: string) => {
+    console.log(id);
   };
 
   useEffect(() => {
@@ -47,6 +51,14 @@ const AllBooks = ({ updateBookCount }: AllBooksProps) => {
                   {books.author}
                 </Typography>
                 <Typography variant="body2">Published: {books.year}</Typography>
+                <Button
+                  variant="contained"
+                  color="error"
+                  sx={{ mt: 2 }}
+                  onClick={() => handleDelete(books.id)}
+                >
+                  Delete
+                </Button>
               </CardContent>
             </Card>
           );
